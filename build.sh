@@ -9,7 +9,6 @@ chmod -R +x scripts
 
 docker buildx build \
       -t $FULL_TAG \
-      --build-arg ROOT_PASSWD=${ROOT_PASSWD} \
       $@ .
 
 if [[ $PUSH != 0 ]]; then
