@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Set your VPN server
+export VPN_SERVER="123.123.123.123"
+# Set the subnet that your VPN uses so requests get redirected correctly
+export REDIRECT_SUBNETS="10.0.0.0/8"
+# Unused: proxy PAC note
+export PROXY_PAC_URL="http://proxypac.example.com/proxy.pac"
+# Change container user password for security
+export APPUSER_PASSWD="s0m3xs4f3xp4sswd"
+
+
+# No need to change stuff below this line unless you want to push your own image
+export REPO_NAME=joy13975
+export APP_NAME=vpnshuttle
+export TAG=latest
+export FULL_TAG=$REPO_NAME/$APP_NAME:$TAG
+
+export APP_READY_FILE="/app/app_ready"
+export DOCKER_SSH_PORT=10022

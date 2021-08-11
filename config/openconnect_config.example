@@ -1,0 +1,10 @@
+protocol          = anyconnect
+servercert        = <get your servercert string from openconnect log while not setting --servercert>
+certificate       = <some certificate in certs/>
+usergroup         = <user group>
+version-string    = <if you need a specific version>
+useragent         = <user agent string if it is relevant>
+local-hostname    = VPN_TEST
+base-mtu          = 1400
+os                = win
+reconnect-timeout = 30
