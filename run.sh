@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 USE_HOST=${USE_HOST:-0}
 KEEP_CONTAINER=${KEEP_CONTAINER:-0}
@@ -37,7 +37,7 @@ fi
 . ./scripts/host/config_dns.sh
 cleanup ()
 {
-    echo "Ctrl-C caught... Cleaning up DNS and container"
+    echo "Interrupt caught... Cleaning up DNS and container"
     unset_vpnshuttle_dns || true
     if [[ $KEEP_CONTAINER == 0 ]]; then
         cleanup_container
@@ -59,4 +59,11 @@ done
 set_vpnshuttle_dns
 
 # Start sshuttle
-sshuttle -r appuser:$APPUSER_PASSWD@localhost:$DOCKER_SSH_PORT -v $REDIRECT_SUBNETS
+cmd="sshuttle -r \
+    appuser:$APPUSER_PASSWD@localhost:$DOCKER_SSH_PORT \
+    -v $REDIRECT_SUBNETS\
+    --auto-nets \
+    --auto-hosts \
+    -e 'ssh -o \"StrictHostKeyChecking no\" -o \"UserKnownHostsFile /dev/null\"'"
+echo $cmd
+eval $cmd
